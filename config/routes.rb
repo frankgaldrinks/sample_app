@@ -1,7 +1,13 @@
 SampleApp::Application.routes.draw do
   resources :users
+  resources :sessions, only: [:new, :create, :destroy]
 
   root to: 'static_pages#home'
+
+  #routes to app/views/sessions/new.html.erb and in authentication_pages_spec.rb it is the signin_path
+  match '/signup',  to: 'users#new'
+  match '/signin',  to: 'sessions#new'
+  match '/signout', to: 'sessions#destroy', via: :delete
 
   match '/signup',  to: 'users#new'
 
